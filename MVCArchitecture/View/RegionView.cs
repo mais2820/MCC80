@@ -11,13 +11,13 @@ namespace MVCArchitecture.View
     {
         public int Menu()
         {
-            Console.WriteLine("== Menu Region ==");
-            Console.WriteLine("1. Tambah");
-            Console.WriteLine("2. Update");
-            Console.WriteLine("3. Hapus");
-            Console.WriteLine("4. Search By Id");
-            Console.WriteLine("5. Get All");
-            Console.WriteLine("6. Main Menu");
+            Console.WriteLine("== REGION ==");
+            Console.WriteLine("1. Get All");
+            Console.WriteLine("2. GetById");
+            Console.WriteLine("3. Insert");
+            Console.WriteLine("4. Update");
+            Console.WriteLine("5. Delete");
+            Console.WriteLine("6. Back");
             Console.WriteLine("Pilih: ");
 
             int input = Int32.Parse(Console.ReadLine());
@@ -36,7 +36,7 @@ namespace MVCArchitecture.View
             Console.WriteLine("Id: " + region.Id);
             Console.WriteLine("Name: " + region.Name);
             Console.WriteLine("==========================");
-        }            
+        }       
 
         public Region InsertMenu()
         {
@@ -68,17 +68,14 @@ namespace MVCArchitecture.View
         {
             Console.WriteLine("Data Not Found!");
         }
-
         public void Success()
         {
             Console.WriteLine("Success!");
         }
-
         public void Failure()
         {
             Console.WriteLine("Fail, Id not found!");
         }
-
         public void Error()
         {
             Console.WriteLine("Error retrieving from database!");

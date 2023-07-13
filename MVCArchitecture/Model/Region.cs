@@ -52,11 +52,7 @@ namespace MVCArchitecture.Model
                 return new List<Region>();
             }
         }
-
-        /*
-         * <summary>digunakan untuk melakukan penambahan record ke database</summary>
-         * <param region>value input yang diperlukan tabel region</param>
-         */
+       
         public int Insert(Region region)
         {
             var connection = Connection.Get();
@@ -197,5 +193,10 @@ namespace MVCArchitecture.Model
                 return new Region();
             }
         }
+
+        /*
+         * <summary>digunakan untuk melakukan penambahan record ke database</summary>
+         * <param region>value input yang diperlukan tabel region</param>
+         */
     }
 }

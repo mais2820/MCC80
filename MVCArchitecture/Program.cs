@@ -17,14 +17,20 @@ public class Program
         bool ulang = true;
         do
         {
-            Console.WriteLine("Pilih menu untuk masuk ke menunya");
-            Console.WriteLine("1. Regions");
+            Console.WriteLine("== MENU DATABASE AL MAIS ==");
+            Console.WriteLine("1. Employees");
+            Console.WriteLine("2. Departments");
+            Console.WriteLine("3. Jobs");
+            Console.WriteLine("4. Histories");
+            Console.WriteLine("5. Locations");
+            Console.WriteLine("6. Countries");
+            Console.WriteLine("7. Regions");
             Console.WriteLine("8. Exit");
-            Console.WriteLine("Pilih: ");
 
             try
             {
                 int pilihMenu = Int32.Parse(Console.ReadLine());
+                Console.Clear();
 
                 switch (pilihMenu)
                 {
@@ -56,6 +62,8 @@ public class Program
         do
         {
             int pilihMenu = vRegion.Menu();
+            Console.Clear();
+
             switch (pilihMenu)
             {
                 case 1:

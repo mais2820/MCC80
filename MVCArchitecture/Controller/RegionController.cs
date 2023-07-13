@@ -32,6 +32,11 @@ namespace MVCArchitecture.Controller
             }
         }
 
+        public void GetById()
+        {
+            
+        }
+
         public void Insert()
         {
             var region = _regionView.InsertMenu();
@@ -68,6 +73,11 @@ namespace MVCArchitecture.Controller
                     _regionView.Success();
                     break;
             }
+        }
+
+        public void Delete()
+        {
+
         }
     }
 }
