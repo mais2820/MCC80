@@ -5,26 +5,26 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MVCArchitecture.Controller;
+using System.Xml.Linq;
 
 namespace MVCArchitecture.Model
 {
-    public class Jobs
+    public class Department
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public int MinSalary { get; set; }
-        public int MaxSalary { get; set; }
+        public string Name { get; set; }
+        public int LocationId { get; set; }
+        public int ManagerId { get; set; }
 
-        public List<Jobs> GetAll()
+        public List<Department> GetAll()
         {
             var connection = Connection.Get();
 
-            var jobs = new List<Jobs>();
+            var departments = new List<Department>();
 
             using SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "SELECT * FROM Jobs";
+            sqlCommand.CommandText = "SELECT * FROM Department";
 
             try
             {
@@ -35,13 +35,13 @@ namespace MVCArchitecture.Model
                 {
                     while (reader.Read())
                     {
-                        Jobs job = new Jobs();
-                        job.Id = reader.GetInt32(0);
-                        job.Title = reader.GetString(1);
-                        job.MinSalary = reader.GetInt32(2);
-                        job.MaxSalary = reader.GetInt32(3);
+                        Department department = new Department();
+                        department.Id = reader.GetInt32(0);
+                        department.Name = reader.GetString(1);
+                        department.LocationId = reader.GetInt32(2);
+                        department.ManagerId = reader.GetInt32(3);
 
-                        jobs.Add(job);
+                        departments.Add(department);
                     }
                 }
                 else
@@ -50,22 +50,22 @@ namespace MVCArchitecture.Model
                     connection.Close();
                 }
 
-                return jobs;
+                return departments;
             }
             catch
             {
-                return new List<Jobs>();
+                return new List<Department>();
             }
         }
 
-        public int Insert(Jobs jobs)
+        public int Insert(Department department)
         {
             var connection = Connection.Get();
 
             using SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "INSERT INTO Jobs(id, title, min_salary, max_salary) " +
-                "VALUES(@id, @title, @min_salary, @max_salary)";
+            sqlCommand.CommandText = "INSERT INTO Department (id, name, location_id, manager_id) " +
+                "VALUES (@id, @name, @location_id, manager_id)";
 
             connection.Open();
             using SqlTransaction transaction = connection.BeginTransaction();
@@ -75,27 +75,27 @@ namespace MVCArchitecture.Model
             {
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
-                pId.SqlDbType = SqlDbType.Char;
+                pId.SqlDbType = SqlDbType.Int;
                 pId.Value = Id;
                 sqlCommand.Parameters.Add(pId);
 
-                SqlParameter pTitle = new SqlParameter();
-                pTitle.ParameterName = "@title";
-                pTitle.SqlDbType = SqlDbType.VarChar;
-                pTitle.Value = Title;
-                sqlCommand.Parameters.Add(pTitle);
+                SqlParameter pName = new SqlParameter();
+                pName.ParameterName = "@name";
+                pName.SqlDbType = SqlDbType.VarChar;
+                pName.Value = Name;
+                sqlCommand.Parameters.Add(pName);
 
-                SqlParameter pMinSalary = new SqlParameter();
-                pMinSalary.ParameterName = "@min_salary";
-                pMinSalary.SqlDbType = SqlDbType.Int;
-                pMinSalary.Value = MinSalary;
-                sqlCommand.Parameters.Add(pMinSalary);
+                SqlParameter pLocationId = new SqlParameter();
+                pLocationId.ParameterName = "@location_id";
+                pLocationId.SqlDbType = SqlDbType.Int;
+                pLocationId.Value = LocationId;
+                sqlCommand.Parameters.Add(pLocationId);
 
-                SqlParameter pMaxSalary = new SqlParameter();
-                pMaxSalary.ParameterName = "@max_salary";
-                pMaxSalary.SqlDbType = SqlDbType.Int;
-                pMaxSalary.Value = MaxSalary;
-                sqlCommand.Parameters.Add(pMaxSalary);
+                SqlParameter pManagerId = new SqlParameter();
+                pManagerId.ParameterName = "@manager_id";
+                pManagerId.SqlDbType = SqlDbType.Int;
+                pManagerId.Value = ManagerId;
+                sqlCommand.Parameters.Add(pManagerId);
 
                 int result = sqlCommand.ExecuteNonQuery();
 
@@ -111,14 +111,14 @@ namespace MVCArchitecture.Model
             }
         }
 
-        public int Update(Jobs jobs)
+        public int Update(Department department)
         {
             var connection = Connection.Get();
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "UPDATE Jobs SET title = @newTitle, min_salary = @newMin_salary, max_salary = @newMax_salary " +
-                "WHERE Id = @id";
+            sqlCommand.CommandText = "UPDATE Department SET Name = @newName, " +
+                "location_id = @newLocation_id, manager_id = @newManager_id  WHERE Id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -127,27 +127,27 @@ namespace MVCArchitecture.Model
             {
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
-                pId.SqlDbType = SqlDbType.Char;
+                pId.SqlDbType = SqlDbType.Int;
                 pId.Value = Id;
                 sqlCommand.Parameters.Add(pId);
 
-                SqlParameter pTitle = new SqlParameter();
-                pTitle.ParameterName = "@title";
-                pTitle.SqlDbType = SqlDbType.VarChar;
-                pTitle.Value = Title;
-                sqlCommand.Parameters.Add(pTitle);
+                SqlParameter pNewName = new SqlParameter();
+                pNewName.ParameterName = "@newName";
+                pNewName.SqlDbType = SqlDbType.VarChar;
+                pNewName.Value = Name;
+                sqlCommand.Parameters.Add(pNewName);
 
-                SqlParameter pMinSalary = new SqlParameter();
-                pMinSalary.ParameterName = "@min_salary";
-                pMinSalary.SqlDbType = SqlDbType.Int;
-                pMinSalary.Value = MinSalary;
-                sqlCommand.Parameters.Add(pMinSalary);
+                SqlParameter pNewLocationId = new SqlParameter();
+                pNewLocationId.ParameterName = "@newLocation_id";
+                pNewLocationId.SqlDbType = SqlDbType.Int;
+                pNewLocationId.Value = LocationId;
+                sqlCommand.Parameters.Add(pNewLocationId);
 
-                SqlParameter pMaxSalary = new SqlParameter();
-                pMaxSalary.ParameterName = "@max_salary";
-                pMaxSalary.SqlDbType = SqlDbType.Int;
-                pMaxSalary.Value = MaxSalary;
-                sqlCommand.Parameters.Add(pMaxSalary);
+                SqlParameter pNewManagerId = new SqlParameter();
+                pNewManagerId.ParameterName = "@newManager_id";
+                pNewManagerId.SqlDbType = SqlDbType.Int;
+                pNewManagerId.Value = ManagerId;
+                sqlCommand.Parameters.Add(pNewManagerId);
 
                 int result = sqlCommand.ExecuteNonQuery();
 
@@ -164,14 +164,13 @@ namespace MVCArchitecture.Model
             }
         }
 
-
         public int Delete(int id)
         {
             var connection = Connection.Get();
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "DELETE FROM Jobs WHERE Id = @id";
+            sqlCommand.CommandText = "DELETE FROM Department WHERE Id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -190,25 +189,23 @@ namespace MVCArchitecture.Model
                 connection.Close();
 
                 return result;
-
             }
             catch
             {
                 transaction.Rollback();
                 return -1;
             }
-
         }
 
-        public Jobs GetById(int id)
+        public Department GetById(int id)
         {
-            var jobs = new Jobs();
+            var department = new Department();
 
             var connection = Connection.Get();
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "SELECT * FROM Jobs WHERE ID = @id";
+            sqlCommand.CommandText = "SELECT * FROM Department WHERE ID = @id";
             sqlCommand.Parameters.AddWithValue("@region_id", id);
 
             try
@@ -219,22 +216,21 @@ namespace MVCArchitecture.Model
                 {
                     reader.Read();
 
-                    jobs.Id = reader.GetInt32(0);
-                    jobs.Title = reader.GetString(1);
-                    jobs.MinSalary = reader.GetInt32(2);
-                    jobs.MaxSalary = reader.GetInt32(3);
+                    department.Id = reader.GetInt32(0);
+                    department.Name = reader.GetString(1);
+                    department.LocationId = reader.GetInt32(2);
+                    department.ManagerId = reader.GetInt32(3);
                 }
 
                 reader.Close();
                 connection.Close();
 
-                return new Jobs();
+                return new Department();
             }
             catch
             {
-                return new Jobs();
+                return new Department();
             }
         }
     }
-    
 }

@@ -1,17 +1,17 @@
-﻿using System;
+﻿using MVCArchitecture.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MVCArchitecture.Model;
 
 namespace MVCArchitecture.View
 {
-    public class CountriesView
+    public class DepartmentView
     {
         public int Menu()
         {
-            Console.WriteLine("== COUNTRIES ==");
+            Console.WriteLine("== DEPARTMENT ==");
             Console.WriteLine("1. Get All");
             Console.WriteLine("2. GetById");
             Console.WriteLine("3. Insert");
@@ -24,54 +24,62 @@ namespace MVCArchitecture.View
             return input;
         }
 
-        public void GetAll(List<Countries> countriess)
+        public void GetAll(List<Department> departments)
         {
-            foreach (var Countries in countriess)
+            foreach (var department in departments)
             {
-                GetById(Countries);
+                GetById(department);
             }
         }
-
-        public void GetById(Countries countries)
+        public void GetById(Department department)
         {
-            Console.WriteLine("Id: " + countries.Id);
-            Console.WriteLine("Name: " + countries.Name);
-            Console.WriteLine("Region ID: " + countries.RegionId);
+            Console.WriteLine("Id: " + department.Id);
+            Console.WriteLine("Name: " + department.Name);
+            Console.WriteLine("Location Id: " + department.LocationId);
+            Console.WriteLine("Manager Id: " + department.ManagerId);
             Console.WriteLine("==========================");
         }
 
-        public Countries InsertMenu()
+        public Department InsertMenu()
         {
             Console.WriteLine("Masukan Nama: ");
             string? inputName = Console.ReadLine();
 
-            Console.WriteLine("Masukan Region ID: ");
-            int inputRegionId = Convert.ToInt32(Console.ReadLine()); 
+            Console.WriteLine("Masukan Location ID: ");
+            int locationId = Convert.ToInt32(Console.ReadLine());
 
-            return new Countries
+            Console.WriteLine("Masukan Manager ID: ");
+            int managerId = Convert.ToInt32(Console.ReadLine());
+
+            return new Department
             {
                 Id = 0,
                 Name = inputName,
-                RegionId = inputRegionId
+                LocationId = locationId,
+                ManagerId = managerId
             };
         }
 
-        public Countries UpdateMenu()
+        public Department UpdateMenu()
         {
             Console.WriteLine("Id yang ingin diubah: ");
             int id = Convert.ToInt32(Console.ReadLine());
-            
-            Console.WriteLine("Nama: ");
-            string name = Console.ReadLine();
 
-            Console.WriteLine("Region ID: ");
-            int inputRegionId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Masukan Nama: ");
+            string? inputName = Console.ReadLine();
 
-            return new Countries
+            Console.WriteLine("Masukan Location ID: ");
+            int locationId = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Masukan Manager ID: ");
+            int managerId = Convert.ToInt32(Console.ReadLine());
+
+            return new Department
             {
                 Id = id,
-                Name = name,
-                RegionId= inputRegionId
+                Name = inputName,
+                LocationId = locationId,
+                ManagerId = managerId               
             };
         }
 
@@ -93,4 +101,3 @@ namespace MVCArchitecture.View
         }
     }
 }
-
