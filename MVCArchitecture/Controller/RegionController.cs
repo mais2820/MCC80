@@ -34,7 +34,17 @@ namespace MVCArchitecture.Controller
 
         public void GetById()
         {
-            
+            int id = _regionView.GetById();
+            Region region = _regionModel.GetById(id);
+
+            if (region != null)
+            {
+                _regionView.GetById(region);
+            }
+            else
+            {
+                _regionView.DataEmpty();
+            }
         }
 
         public void Insert()
@@ -77,7 +87,20 @@ namespace MVCArchitecture.Controller
 
         public void Delete()
         {
-
+            var region = _regionView.Delete();
+            var result = _regionModel.Delete(region);
+            switch (result)
+            {
+                case 0:
+                    _regionView.Failure();
+                    break;
+                case -1:
+                    _regionView.Error();
+                    break;
+                default:
+                    _regionView.Success();
+                    break;
+            }
         }
     }
 }

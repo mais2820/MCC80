@@ -63,6 +63,16 @@ namespace MVCArchitecture.View
                 Name = name
             };
         }
+        public Region Delete()
+        {
+            Console.Write("Input Region ID To Delete : ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            return new Region
+            {
+                Id = id,
+                Name = "",
+            };
+        }
 
         public void DataEmpty()
         {

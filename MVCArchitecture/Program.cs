@@ -87,22 +87,27 @@ public class Program
             switch (pilihMenu)
             {
                 case 1:
+                    Console.Clear();
                     regionController.GetAll();
                     PressAnyKey();
                     break;
                 case 2:
+                    Console.Clear();
                     regionController.GetById();
                     PressAnyKey();
                     break;
                 case 3:
+                    Console.Clear();
                     regionController.Insert();
-                    PressAnyKey();
+                    PressAnyKey(); 
                     break;
                 case 4:
+                    Console.Clear();
                     regionController.Update();
                     PressAnyKey();
                     break;
                 case 5:
+                    Console.Clear();
                     regionController.Delete();
                     PressAnyKey();
                     break;
@@ -113,7 +118,8 @@ public class Program
                     InvalidInput();
                     break;
             }
-        } while (isTrue);
+        }   
+        while (isTrue);
     }
 
     private static void JobsMenu() 
@@ -131,22 +137,27 @@ public class Program
             switch (pilihMenu)
             {
                 case 1:
+                    Console.Clear();
                     jobsController.GetAll();
                     PressAnyKey();
                     break;
                 case 2:
+                    Console.Clear();
                     jobsController.GetById();
                     PressAnyKey();
                     break;
                 case 3:
+                    Console.Clear();
                     jobsController.Insert();
                     PressAnyKey();
                     break;
                 case 4:
+                    Console.Clear();
                     jobsController.Update();
                     PressAnyKey();
                     break;
                 case 5:
+                    Console.Clear();
                     jobsController.Delete();
                     PressAnyKey();
                     break;
@@ -175,22 +186,27 @@ public class Program
             switch (pilihMenu)
             {
                 case 1:
+                    Console.Clear();
                     countriesController.GetAll();
                     PressAnyKey();
                     break;
                 case 2:
+                    Console.Clear();
                     countriesController.GetById();
                     PressAnyKey();
                     break;
                 case 3:
+                    Console.Clear();
                     countriesController.Insert();
                     PressAnyKey();
                     break;
                 case 4:
+                    Console.Clear();
                     countriesController.Update();
                     PressAnyKey();
                     break;
                 case 5:
+                    Console.Clear();
                     countriesController.Delete();
                     PressAnyKey();
                     break;
@@ -219,22 +235,27 @@ public class Program
             switch (pilihMenu)
             {
                 case 1:
+                    Console.Clear();
                     locationController.GetAll();
                     PressAnyKey();
                     break;
                 case 2:
+                    Console.Clear();
                     locationController.GetById();
                     PressAnyKey();
                     break;
                 case 3:
+                    Console.Clear();
                     locationController.Insert();
                     PressAnyKey();
                     break;
                 case 4:
+                    Console.Clear();
                     locationController.Update();
                     PressAnyKey();
                     break;
                 case 5:
+                    Console.Clear();
                     locationController.Delete();
                     PressAnyKey();
                     break;
@@ -263,22 +284,27 @@ public class Program
             switch (pilihMenu)
             {
                 case 1:
+                    Console.Clear();
                     departmentController.GetAll();
                     PressAnyKey();
                     break;
                 case 2:
+                    Console.Clear();
                     departmentController.GetById();
                     PressAnyKey();
                     break;
                 case 3:
+                    Console.Clear();
                     departmentController.Insert();
                     PressAnyKey();
                     break;
                 case 4:
+                    Console.Clear();
                     departmentController.Update();
                     PressAnyKey();
                     break;
                 case 5:
+                    Console.Clear();
                     departmentController.Delete();
                     PressAnyKey();
                     break;
@@ -307,22 +333,27 @@ public class Program
             switch (pilihMenu)
             {
                 case 1:
+                    Console.Clear();
                     historiesController.GetAll();
                     PressAnyKey();
                     break;
                 case 2:
+                    Console.Clear();
                     historiesController.GetById();
                     PressAnyKey();
                     break;
                 case 3:
+                    Console.Clear();
                     historiesController.Insert();
                     PressAnyKey();
                     break;
                 case 4:
+                    Console.Clear();
                     historiesController.Update();
                     PressAnyKey();
                     break;
                 case 5:
+                    Console.Clear();
                     historiesController.Delete();
                     PressAnyKey();
                     break;
@@ -351,22 +382,27 @@ public class Program
             switch (pilihMenu)
             {
                 case 1:
+                    Console.Clear();
                     employeesController.GetAll();
                     PressAnyKey();
                     break;
                 case 2:
+                    Console.Clear();
                     employeesController.GetById();
                     PressAnyKey();
                     break;
                 case 3:
+                    Console.Clear();
                     employeesController.Insert();
                     PressAnyKey();
                     break;
                 case 4:
+                    Console.Clear();
                     employeesController.Update();
                     PressAnyKey();
                     break;
                 case 5:
+                    Console.Clear();
                     employeesController.Delete();
                     PressAnyKey();
                     break;
