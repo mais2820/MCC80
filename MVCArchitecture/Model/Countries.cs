@@ -11,7 +11,7 @@ namespace MVCArchitecture.Model
 {
     public class Countries
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public int RegionId { get; set; }
 
@@ -35,7 +35,7 @@ namespace MVCArchitecture.Model
                     while (reader.Read())
                     {
                         Countries country = new Countries();
-                        country.Id = reader.GetInt32(0);
+                        country.Id = reader.GetString(0);
                         country.Name = reader.GetString(1);
                         country.RegionId = reader.GetInt32(2);
 
@@ -203,7 +203,7 @@ namespace MVCArchitecture.Model
                     reader.Read();
 
                     Countries country = new Countries();
-                    country.Id = reader.GetInt32(0);
+                    country.Id = reader.GetString(0);
                     country.Name = reader.GetString(1);
                     country.RegionId = reader.GetInt32(2);
                 }

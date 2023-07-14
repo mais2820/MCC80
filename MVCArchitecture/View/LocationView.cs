@@ -60,7 +60,7 @@ namespace MVCArchitecture.View
             string stateProvince = Console.ReadLine();
 
             Console.WriteLine("Country ID: ");
-            int countryId = Convert.ToInt32(Console.ReadLine());
+            string countryId = Console.ReadLine();
 
             return new Location
             {
@@ -91,7 +91,7 @@ namespace MVCArchitecture.View
             string stateProvince = Console.ReadLine();
 
             Console.WriteLine("Country ID: ");
-            int countryId = Convert.ToInt32(Console.ReadLine());
+            string countryId = Console.ReadLine();
 
             return new Location
             {

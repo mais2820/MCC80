@@ -60,25 +60,12 @@ public class LinqController
         var getLocation = _location.GetAll();
         var getDepartment = _department.GetAll(); 
 
-        var detailCountry = getCountry.Join(getRegion,
-                                            c => c.RegionId,
-                                            r => r.Id,
-                                            (c, r) => new { c, r })
-                                      .Join(getLocation,
-                                            cr => cr.c.Id,
-                                            l => l.CountryId,
-                                            (cr, l) => new {
-                                                Id = cr.c.Id,
-                                                City = l.City,
-                                                Country = cr.c.Name,
-                                                Region = cr.r.Name
-                                            });
 
-        var detailEmployeeByQuery = (from e in getEmployees
-                                    join d in getDepartment on e.DepartmentId equals d.Id 
-                                    join l in getLocation on d.LocationId equals l.Id
-                                    join c in getCountry on l.CountryId equals c.Id
-                                    join r in getRegion on c.RegionId equals r.Id
+        var detailEmployeeByQuery = (from e in getEmployees 
+                                     join d in getDepartment on e.DepartmentId equals d.Id
+                                     join l in getLocation on d.LocationId equals l.Id
+                                     join c in getCountry on l.CountryId equals c.Id
+                                     join r in getRegion on c.RegionId equals r.Id
                                     select new
                                     {
                                         Id = e.Id,
@@ -95,8 +82,19 @@ public class LinqController
 
         foreach (var employee in detailEmployeeByQuery)
         {
-            Console.WriteLine($"{employee.Id} {employee.FirstName} {employee.LastName} {employee.Email} {employee.Phone} {employee.Salary} " +
-                $"{employee.DepartmentName} {employee.StreetAddress} {employee.CountryName} {employee.RegionName}");
+            //Console.WriteLine($"{employee.Id} {employee.FirstName} {employee.LastName} {employee.Email} {employee.Phone} {employee.Salary} " +
+                //$"{employee.DepartmentName} {employee.StreetAddress} {employee.CountryName} {employee.RegionName}");
+            Console.WriteLine("Id              : "+employee.Id);
+            Console.WriteLine("Full Name       : "+employee.FirstName+" "+employee.LastName);
+            Console.WriteLine("Email           : "+employee.Email);
+            Console.WriteLine("Phone           : "+employee.Phone);
+            Console.WriteLine("Salary          : "+employee.Salary);
+            Console.WriteLine("Department Name : "+employee.DepartmentName);
+            Console.WriteLine("Street Address  : "+employee.StreetAddress);
+            Console.WriteLine("Country Name    : "+employee.CountryName);
+            Console.WriteLine("Region Name     : "+employee.RegionName);
+            Console.WriteLine("");
+
         }
     }
 }

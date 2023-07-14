@@ -13,9 +13,9 @@ namespace MVCArchitecture.Model
         public int Id { get; set; }
         public string? StreetAddress { get; set; }
         public string? PostalCode { get; set; }
-        public string? City { get; set; }
+        public string City { get; set; }
         public string? StateProvince { get; set; }
-        public int CountryId { get; set; }
+        public string CountryId { get; set; }
 
         public List<Location> GetAll()
         {
@@ -24,12 +24,12 @@ namespace MVCArchitecture.Model
             var locations = new List<Location>();
 
             using SqlCommand sqlCommand = new SqlCommand();
+            connection.Open();
             sqlCommand.Connection = connection;
             sqlCommand.CommandText = "SELECT * FROM Location";
 
             try
             {
-                connection.Open();
                 using SqlDataReader reader = sqlCommand.ExecuteReader();
 
                 if (reader.HasRows)
@@ -38,11 +38,11 @@ namespace MVCArchitecture.Model
                     {
                         Location location = new Location();
                         location.Id = reader.GetInt32(0);
-                        location.StreetAddress =  reader.GetString(1);
-                        location.PostalCode =  reader.GetString(2);
-                        location.City = reader.GetString(3);
-                        location.StateProvince =  reader.GetString(4);
-                        location.CountryId =  reader.GetInt32(5);
+                        location.StreetAddress =  reader.IsDBNull("street_address") ? "Null" : reader.GetString("street_address");
+                        location.PostalCode = reader.IsDBNull("postal_code") ? "Null" : reader.GetString("postal_code");
+                        location.City = reader.IsDBNull("city") ? "Null" : reader.GetString("city");
+                        location.StateProvince = reader.IsDBNull("state_province") ? "Null" : reader.GetString("state_province");
+                        location.CountryId = reader.IsDBNull("country_id") ? "Null" : reader.GetString("country_id");
 
                         locations.Add(location);
                     }
@@ -220,17 +220,17 @@ namespace MVCArchitecture.Model
                     location.PostalCode = reader.GetString(2);
                     location.City = reader.GetString(3);
                     location.StateProvince = reader.GetString(4);
-                    location.CountryId = reader.GetInt32(5);
+                    location.CountryId = reader.GetString(5);
                 }
 
                 reader.Close();
                 connection.Close();
 
-                return new Location();
+                return location;
             }
             catch
             {
-                return new Location();
+                return null;
             }
         }
     }   

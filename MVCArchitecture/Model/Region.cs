@@ -171,9 +171,11 @@ namespace MVCArchitecture.Model
             sqlCommand.CommandText = "SELECT * FROM Regions WHERE id = @id";
             sqlCommand.Parameters.AddWithValue("@id", id);
 
+            connection.Open();
+
             try
             {
-                connection.Open();
+                
                 SqlDataReader reader = sqlCommand.ExecuteReader();
                 if (reader.HasRows)
                 {

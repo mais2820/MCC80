@@ -42,6 +42,9 @@ namespace MVCArchitecture.View
 
         public Countries InsertMenu()
         {
+            Console.WriteLine("Masukan ID: ");
+            string inputId = Console.ReadLine();
+
             Console.WriteLine("Masukan Nama: ");
             string? inputName = Console.ReadLine();
 
@@ -50,7 +53,7 @@ namespace MVCArchitecture.View
 
             return new Countries
             {
-                Id = 0,
+                Id = inputId,
                 Name = inputName,
                 RegionId = inputRegionId
             };
@@ -59,7 +62,7 @@ namespace MVCArchitecture.View
         public Countries UpdateMenu()
         {
             Console.WriteLine("Id yang ingin diubah: ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            string id = Console.ReadLine();
             
             Console.WriteLine("Nama: ");
             string name = Console.ReadLine();
