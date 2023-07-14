@@ -34,24 +34,19 @@ namespace MVCArchitecture.Controller
 
         public void GetById()
         {
-            int id = _regionView.GetById();
-            Region region = _regionModel.GetById(id);
-
-            if (region != null)
-            {
-                _regionView.GetById(region);
-            }
-            else
-            {
+            var id = _regionView.InputById();
+            var result = _regionModel.GetById(id);
+            if (result == null)
                 _regionView.DataEmpty();
-            }
+            else
+                _regionView.GetById(result);
         }
 
         public void Insert()
         {
             var region = _regionView.InsertMenu();
-
             var result = _regionModel.Insert(region);
+
             switch (result)
             {
                 case -1:
@@ -87,15 +82,16 @@ namespace MVCArchitecture.Controller
 
         public void Delete()
         {
-            var region = _regionView.Delete();
+            var region = _regionView.InputById();
             var result = _regionModel.Delete(region);
+
             switch (result)
             {
+                case -1:
+                    _regionView.DataEmpty();
+                    break;
                 case 0:
                     _regionView.Failure();
-                    break;
-                case -1:
-                    _regionView.Error();
                     break;
                 default:
                     _regionView.Success();

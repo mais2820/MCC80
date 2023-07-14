@@ -43,6 +43,8 @@ namespace MVCArchitecture.View
 
         public Jobs InsertMenu()
         {
+            Console.WriteLine("Masukkan Id : ");
+            string? id = Console.ReadLine();
             Console.WriteLine("Masukan Title: ");
             string title = Console.ReadLine();
             Console.WriteLine("Masukan Min Salary: ");
@@ -52,7 +54,7 @@ namespace MVCArchitecture.View
 
             return new Jobs
             {
-                Id = 0,
+                Id = id,
                 Title = title,
                 MinSalary = minSalary,
                 MaxSalary = maxSalary
@@ -62,7 +64,7 @@ namespace MVCArchitecture.View
         public Jobs UpdateMenu()
         {
             Console.WriteLine("Id yang ingin diubah: ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            string? id = Console.ReadLine();
             Console.WriteLine("Title: ");
             string title = Console.ReadLine();
             Console.WriteLine("Masukan Min Salary: ");

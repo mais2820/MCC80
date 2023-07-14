@@ -143,7 +143,7 @@ namespace MVCArchitecture.Model
                 SqlParameter pRegionId = new SqlParameter();
                 pRegionId.ParameterName = "@region_id";
                 pRegionId.SqlDbType = System.Data.SqlDbType.Int;
-                pRegionId.Value = id;
+                pRegionId.Value = Id;
                 sqlCommand.Parameters.Add(pRegionId);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -168,8 +168,8 @@ namespace MVCArchitecture.Model
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "SELECT * FROM Regions WHERE region_id = @region_id";
-            sqlCommand.Parameters.AddWithValue("@region_id", id);
+            sqlCommand.CommandText = "SELECT * FROM Regions WHERE id = @id";
+            sqlCommand.Parameters.AddWithValue("@id", id);
 
             try
             {
@@ -186,11 +186,11 @@ namespace MVCArchitecture.Model
                 reader.Close();
                 connection.Close();
 
-                return new Region();
+                return region;
             }
             catch
             {
-                return new Region();
+                return null;
             }
         }
 

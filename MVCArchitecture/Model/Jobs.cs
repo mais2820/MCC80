@@ -11,8 +11,8 @@ namespace MVCArchitecture.Model
 {
     public class Jobs
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
+        public string? Id { get; set; }
+        public string? Title { get; set; }
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
 
@@ -36,7 +36,7 @@ namespace MVCArchitecture.Model
                     while (reader.Read())
                     {
                         Jobs job = new Jobs();
-                        job.Id = reader.GetInt32(0);
+                        job.Id = reader.GetString(0);
                         job.Title = reader.GetString(1);
                         job.MinSalary = reader.GetInt32(2);
                         job.MaxSalary = reader.GetInt32(3);
@@ -219,7 +219,7 @@ namespace MVCArchitecture.Model
                 {
                     reader.Read();
 
-                    jobs.Id = reader.GetInt32(0);
+                    jobs.Id = reader.GetString(0);
                     jobs.Title = reader.GetString(1);
                     jobs.MinSalary = reader.GetInt32(2);
                     jobs.MaxSalary = reader.GetInt32(3);

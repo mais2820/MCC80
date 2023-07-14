@@ -1,8 +1,11 @@
 ﻿
 
 using MVCArchitecture.Controller;
+using MVCArchitecture.Controllers;
 using MVCArchitecture.Model;
 using MVCArchitecture.View;
+using System.Diagnostics.Metrics;
+
 namespace MVCArchitecture;
 
 public class Program
@@ -26,7 +29,8 @@ public class Program
             Console.WriteLine("5. Locations");
             Console.WriteLine("6. Countries");
             Console.WriteLine("7. Regions");
-            Console.WriteLine("8. Exit");
+            Console.WriteLine("8. LINQ");
+            Console.WriteLine("9. Exit");
             Console.Write("Input Menu: ");
 
             try
@@ -58,6 +62,9 @@ public class Program
                         RegionMenu();
                         break;
                     case 8:
+                        LinqMenu();
+                        break;
+                    case 9:
                         ulang = false;
                         break;
                     default:
@@ -70,6 +77,18 @@ public class Program
                 Console.WriteLine("Input Hanya diantara 1-7!");
             }
         } while (ulang);
+    }
+
+    public static void LinqMenu()
+    {
+        var employee = new Employees();
+        var region = new Region();
+        var country = new Countries();
+        var location = new Location();
+        var department = new Department();
+        var linq = new LinqController(employee, country, region, location, department);
+
+        linq.DetailEmployees();
     }
 
     private static void RegionMenu()
@@ -140,6 +159,7 @@ public class Program
                     Console.Clear();
                     jobsController.GetAll();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 2:
                     Console.Clear();
@@ -168,7 +188,8 @@ public class Program
                     InvalidInput();
                     break;
             }
-        } while (isTrue);
+        } 
+        while (isTrue);
     }
 
     private static void CountriesMenu()
@@ -189,6 +210,7 @@ public class Program
                     Console.Clear();
                     countriesController.GetAll();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 2:
                     Console.Clear();
@@ -238,6 +260,7 @@ public class Program
                     Console.Clear();
                     locationController.GetAll();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 2:
                     Console.Clear();
@@ -287,6 +310,7 @@ public class Program
                     Console.Clear();
                     departmentController.GetAll();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 2:
                     Console.Clear();
@@ -315,7 +339,8 @@ public class Program
                     InvalidInput();
                     break;
             }
-        } while (isTrue);
+        } 
+        while (isTrue);
     }
 
     private static void HistoriesMenu()
@@ -336,6 +361,7 @@ public class Program
                     Console.Clear();
                     historiesController.GetAll();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 2:
                     Console.Clear();
@@ -385,6 +411,7 @@ public class Program
                     Console.Clear();
                     employeesController.GetAll();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 2:
                     Console.Clear();
