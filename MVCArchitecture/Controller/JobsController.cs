@@ -21,7 +21,15 @@ namespace MVCArchitecture.Controller
 
         public void GetAll()
         {
-
+            var result = _jobModel.GetAll();
+            if (result.Count is 0)
+            {
+                _jobView.DataEmpty();
+            }
+            else
+            {
+                _jobView.GetAll(result);
+            }
         }
 
         public void GetById()
@@ -31,12 +39,40 @@ namespace MVCArchitecture.Controller
 
         public void Insert()
         {
+            var jobs = _jobView.InsertMenu();
 
+            var result = _jobModel.Insert(jobs);
+            switch (result)
+            {
+                case -1:
+                    _jobView.Error();
+                    break;
+                case 0:
+                    _jobView.Failure();
+                    break;
+                default:
+                    _jobView.Success();
+                    break;
+            }
         }
 
-        public void Update() 
-        { 
-        
+        public void Update()
+        {
+            var jobs = _jobView.UpdateMenu();
+            var result = _jobModel.Update(jobs);
+
+            switch (result)
+            {
+                case -1:
+                   _jobView.Error();
+                    break;
+                case 0:
+                    _jobView.Failure();
+                    break;
+                default:
+                    _jobView.Success();
+                    break;
+            }
         }
         public void Delete() 
         { 

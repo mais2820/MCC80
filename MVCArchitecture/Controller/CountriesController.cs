@@ -18,5 +18,66 @@ namespace MVCArchitecture.Controller
             _countriesModel = countriesModel;
             _countriesView = countriesView;
         }
+
+        public void GetAll()
+        {
+            var result = _countriesModel.GetAll();
+            if (result.Count is 0)
+            {
+                _countriesView.DataEmpty();
+            }
+            else
+            {
+                _countriesView.GetAll(result);
+            }
+        }
+
+        public void GetById()
+        {
+
+        }
+
+        public void Insert()
+        {
+            var countries = _countriesView.InsertMenu();
+
+            var result = _countriesModel.Insert(countries);
+            switch (result)
+            {
+                case -1:
+                    _countriesView.Error();
+                    break;
+                case 0:
+                    _countriesView.Failure();
+                    break;
+                default:
+                    _countriesView.Success();
+                    break;
+            }
+        }
+
+        public void Update()
+        {
+            var countries = _countriesView.UpdateMenu();
+            var result = _countriesModel.Update(countries);
+
+            switch (result)
+            {
+                case -1:
+                    _countriesView.Error();
+                    break;
+                case 0:
+                    _countriesView.Failure();
+                    break;
+                default:
+                    _countriesView.Success();
+                    break;
+            }
+        }
+
+        public void Delete()
+        {
+
+        }
     }
 }
