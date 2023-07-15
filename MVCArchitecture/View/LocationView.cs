@@ -33,13 +33,22 @@ namespace MVCArchitecture.View
 
         public void GetById(Location location)
         {
+            Console.WriteLine("==========================");
             Console.WriteLine("Id: " + location.Id);
             Console.WriteLine("Street Address: " + location.StreetAddress);
             Console.WriteLine("Postal Code: " + location.PostalCode);
             Console.WriteLine("City: " + location.City);
             Console.WriteLine("State Province: " + location.StateProvince);
             Console.WriteLine("Country Id: " + location.CountryId);
-            Console.WriteLine("==========================");
+
+        }
+
+        public int InputById()
+        {
+            Console.WriteLine("Masukkan ID:");
+            int inputId = Convert.ToInt32(Console.ReadLine());
+            return inputId;
+
         }
 
         public Location InsertMenu()
@@ -101,6 +110,22 @@ namespace MVCArchitecture.View
                 City = city,
                 StateProvince = stateProvince,
                 CountryId = countryId
+            };
+        }
+
+        public Location DeleteMenu()
+        {
+            Console.WriteLine("Id yang ingin dihapus: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            return new Location
+            {
+                Id = id,
+                StreetAddress = "",
+                PostalCode = "",
+                City = "",
+                StateProvince = "",
+                CountryId = ""
             };
         }
 

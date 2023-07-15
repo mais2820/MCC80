@@ -33,17 +33,28 @@ namespace MVCArchitecture.View
         }
         public void GetById(Department department)
         {
+            Console.WriteLine("==========================");
             Console.WriteLine("Id: " + department.Id);
             Console.WriteLine("Name: " + department.Name);
             Console.WriteLine("Location Id: " + department.LocationId);
-            Console.WriteLine("Manager Id: " + department.ManagerId);
-            Console.WriteLine("==========================");
+            Console.WriteLine("Manager Id: " + department.ManagerId);            
+        }
+
+        public int InputById()
+        {
+            Console.WriteLine("Masukkan ID:");
+            int inputId = Convert.ToInt32(Console.ReadLine());
+            return inputId;
+
         }
 
         public Department InsertMenu()
         {
+            Console.WriteLine("Id yang ingin di insert: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
             Console.WriteLine("Masukan Nama: ");
-            string? inputName = Console.ReadLine();
+            string inputName = Console.ReadLine();
 
             Console.WriteLine("Masukan Location ID: ");
             int locationId = Convert.ToInt32(Console.ReadLine());
@@ -53,7 +64,7 @@ namespace MVCArchitecture.View
 
             return new Department
             {
-                Id = 0,
+                Id = id,
                 Name = inputName,
                 LocationId = locationId,
                 ManagerId = managerId
@@ -66,7 +77,7 @@ namespace MVCArchitecture.View
             int id = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Masukan Nama: ");
-            string? inputName = Console.ReadLine();
+            string inputName = Console.ReadLine();
 
             Console.WriteLine("Masukan Location ID: ");
             int locationId = Convert.ToInt32(Console.ReadLine());
@@ -80,6 +91,20 @@ namespace MVCArchitecture.View
                 Name = inputName,
                 LocationId = locationId,
                 ManagerId = managerId               
+            };
+        }
+
+        public Department DeleteMenu()
+        {
+            Console.WriteLine("Id yang ingin dihapus: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            return new Department
+            {
+                Id = id,
+                Name = "",
+                LocationId = 0,
+                ManagerId = 0
             };
         }
 

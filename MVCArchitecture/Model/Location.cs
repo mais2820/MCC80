@@ -78,26 +78,26 @@ namespace MVCArchitecture.Model
             {
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
-                pId.SqlDbType = SqlDbType.VarChar;
-                pId.Value = Id;
+                pId.SqlDbType = SqlDbType.Int;
+                pId.Value = location.Id;
                 sqlCommand.Parameters.Add(pId);
 
                 SqlParameter pStreetAddress = new SqlParameter();
                 pStreetAddress.ParameterName = "@street_address";
                 pStreetAddress.SqlDbType = SqlDbType.VarChar;
-                pStreetAddress.Value = StreetAddress;
+                pStreetAddress.Value = location.StreetAddress;
                 sqlCommand.Parameters.Add(pStreetAddress);
 
                 SqlParameter pPostalCode = new SqlParameter();
                 pPostalCode.ParameterName = "@postal_code";
                 pPostalCode.SqlDbType = SqlDbType.Int;
-                pPostalCode.Value = PostalCode;
+                pPostalCode.Value = location.PostalCode;
                 sqlCommand.Parameters.Add(pPostalCode);
 
                 SqlParameter pCity = new SqlParameter();
                 pCity.ParameterName = "@city";
                 pCity.SqlDbType = SqlDbType.VarChar;
-                pCity.Value = City;
+                pCity.Value = location.City;
                 sqlCommand.Parameters.Add(pCity);
 
                 SqlParameter pStateProvince = new SqlParameter();
@@ -109,7 +109,7 @@ namespace MVCArchitecture.Model
                 SqlParameter pCountryId = new SqlParameter();
                 pCountryId.ParameterName = "@country_id";
                 pCountryId.SqlDbType = SqlDbType.Int;
-                pCountryId.Value = CountryId;
+                pCountryId.Value = location.CountryId;
                 sqlCommand.Parameters.Add(pCountryId);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -132,19 +132,19 @@ namespace MVCArchitecture.Model
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "UPDATE Location SET street_address = @newStreet_address, postal_code = @newPostal_code, " +
-                "city = @newCity, state_province = @newState_province,country_id = @newCountry_id WHERE id = @id";
+            sqlCommand.CommandText = "UPDATE Location SET street_address = @street_address, postal_code = @postal_code, " +
+                "city = @city, state_province = @state_province,country_id = @country_id WHERE id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
             sqlCommand.Transaction = transaction;
 
-            sqlCommand.Parameters.AddWithValue("@id", Id);
-            sqlCommand.Parameters.AddWithValue("@newStreet_address", StreetAddress);
-            sqlCommand.Parameters.AddWithValue("@newPostal_code", PostalCode);
-            sqlCommand.Parameters.AddWithValue("@newCity", City);
-            sqlCommand.Parameters.AddWithValue("@newState_province", StateProvince);
-            sqlCommand.Parameters.AddWithValue("@newCountry_id", CountryId);
+            sqlCommand.Parameters.AddWithValue("@id", location.Id);
+            sqlCommand.Parameters.AddWithValue("@street_address", location.StreetAddress);
+            sqlCommand.Parameters.AddWithValue("@postal_code", location.PostalCode);
+            sqlCommand.Parameters.AddWithValue("@city", location.City);
+            sqlCommand.Parameters.AddWithValue("@state_province", location.StateProvince);
+            sqlCommand.Parameters.AddWithValue("@country_id", location.CountryId);
 
             try { 
                  
@@ -163,13 +163,13 @@ namespace MVCArchitecture.Model
             }
         }
 
-        public int Delete(int id)
+        public int Delete(Location location)
         {
             var connection = Connection.Get();
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "DELETE FROM Location WHERE Id = @id";
+            sqlCommand.CommandText = "DELETE FROM Location WHERE id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -179,7 +179,7 @@ namespace MVCArchitecture.Model
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
                 pId.SqlDbType = SqlDbType.Int;
-                pId.Value = Id;
+                pId.Value = location.Id;
                 sqlCommand.Parameters.Add(pId);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -204,7 +204,7 @@ namespace MVCArchitecture.Model
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "SELECT * FROM Location WHERE ID = @id";
+            sqlCommand.CommandText = "SELECT * FROM Location WHERE id = @id";
             sqlCommand.Parameters.AddWithValue("@id", id);
 
             try
@@ -216,11 +216,12 @@ namespace MVCArchitecture.Model
                     reader.Read();
 
                     location.Id = reader.GetInt32(0);
-                    location.StreetAddress = reader.GetString(1);
-                    location.PostalCode = reader.GetString(2);
-                    location.City = reader.GetString(3);
-                    location.StateProvince = reader.GetString(4);
-                    location.CountryId = reader.GetString(5);
+                    location.StreetAddress = reader.IsDBNull("street_address") ? "Null" : reader.GetString("street_address");
+                    location.PostalCode = reader.IsDBNull("postal_code") ? "Null" : reader.GetString("postal_code");
+                    location.City = reader.IsDBNull("city") ? "Null" : reader.GetString("city");
+                    location.StateProvince = reader.IsDBNull("state_province") ? "Null" : reader.GetString("state_province");
+                    location.CountryId = reader.IsDBNull("country_id") ? "Null" : reader.GetString("country_id");
+
                 }
 
                 reader.Close();

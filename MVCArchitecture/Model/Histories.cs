@@ -11,7 +11,7 @@ namespace MVCArchitecture.Model
     {
         public DateTime StartDate { get; set; }
         public int EmployeeId { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public int DepartmentId { get; set; }
         public int JobId { get; set; }
 
@@ -64,18 +64,18 @@ namespace MVCArchitecture.Model
 
             using SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "INSERT INTO Histories (start_date, employee_id, end_date, department_id,job_id) " +
-                "VALUES (@start_date, @employee_id, @end_date, @department_id,@job_id)";
+            sqlCommand.CommandText = "INSERT INTO Histories (start_date, employee_id, end_date, department_id, job_id) " +
+                "VALUES (@start_date, @employee_id, @end_date, @department_id, @job_id)";
 
             connection.Open();
             using SqlTransaction transaction = connection.BeginTransaction();
             sqlCommand.Transaction = transaction;
 
-            sqlCommand.Parameters.AddWithValue("@StartDate", StartDate);
-            sqlCommand.Parameters.AddWithValue("@EmployeeID", EmployeeId);
-            sqlCommand.Parameters.AddWithValue("@EndDate", EndDate);
-            sqlCommand.Parameters.AddWithValue("@DepartmentID", DepartmentId);
-            sqlCommand.Parameters.AddWithValue("@JobID", JobId);
+            sqlCommand.Parameters.AddWithValue("@StartDate", histories.StartDate);
+            sqlCommand.Parameters.AddWithValue("@EmployeeID", histories.EmployeeId);
+            sqlCommand.Parameters.AddWithValue("@EndDate", histories.EndDate);
+            sqlCommand.Parameters.AddWithValue("@DepartmentID", histories.DepartmentId);
+            sqlCommand.Parameters.AddWithValue("@JobID", histories.JobId);
 
             try
             {             
@@ -99,18 +99,18 @@ namespace MVCArchitecture.Model
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "UPDATE Histories SET start_date = @newStart_date, employee_id = newEmployee_id, end_date = newEnd_date, job_id = newJob_id, department_id = newDepartment_id " +
-                "WHERE employee_id = @newEmployee_id";
+            sqlCommand.CommandText = "UPDATE Histories SET start_date = @start_date, employee_id = employee_id, end_date = end_date, job_id = job_id, department_id = department_id " +
+                "WHERE employee_id = @employee_id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
             sqlCommand.Transaction = transaction;
 
-            sqlCommand.Parameters.AddWithValue("@StartDate", StartDate);
-            sqlCommand.Parameters.AddWithValue("@EmployeeID", EmployeeId);
-            sqlCommand.Parameters.AddWithValue("@EndDate", EndDate);
-            sqlCommand.Parameters.AddWithValue("@DepartmentID", DepartmentId);
-            sqlCommand.Parameters.AddWithValue("@JobID", JobId);
+            sqlCommand.Parameters.AddWithValue("@StartDate", histories.StartDate);
+            sqlCommand.Parameters.AddWithValue("@EmployeeID", histories.EmployeeId);
+            sqlCommand.Parameters.AddWithValue("@EndDate", histories.EndDate);
+            sqlCommand.Parameters.AddWithValue("@DepartmentID", histories.DepartmentId);
+            sqlCommand.Parameters.AddWithValue("@JobID", histories.JobId);
 
             try
             {              
@@ -129,7 +129,7 @@ namespace MVCArchitecture.Model
             }
         }
 
-        public int Delete(int id)
+        public int Delete(Histories histories)
         {
             var connection = Connection.Get();
 
@@ -145,7 +145,7 @@ namespace MVCArchitecture.Model
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@employee_id";
                 pId.SqlDbType = System.Data.SqlDbType.Int;
-                pId.Value = EmployeeId;
+                pId.Value = histories.EmployeeId;
                 sqlCommand.Parameters.Add(pId);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -162,7 +162,7 @@ namespace MVCArchitecture.Model
             }
         }
 
-        public Histories GetById(int id)
+        public Histories GetById(int employee_id)
         {
             var history = new Histories();
 
@@ -171,16 +171,12 @@ namespace MVCArchitecture.Model
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
             sqlCommand.CommandText = "SELECT * FROM Histories WHERE employee_id = @employee_id";
+            sqlCommand.Parameters.AddWithValue("@employee_id", employee_id);
+
+            connection.Open();
 
             try
-            {
-                SqlParameter pId = new SqlParameter();
-                pId.ParameterName = "@employee_id";
-                pId.SqlDbType = System.Data.SqlDbType.Int;
-                pId.Value = EmployeeId;
-                sqlCommand.Parameters.Add(pId);
-
-                connection.Open();
+            { 
                 SqlDataReader reader = sqlCommand.ExecuteReader();
                 if (reader.HasRows)
                 {

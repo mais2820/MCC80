@@ -34,10 +34,18 @@ namespace MVCArchitecture.View
 
         public void GetById(Countries countries)
         {
-            Console.WriteLine("Id: " + countries.Id);
-            Console.WriteLine("Name: " + countries.Name);
-            Console.WriteLine("Region ID: " + countries.RegionId);
             Console.WriteLine("==========================");
+            Console.WriteLine("Id       : " + countries.Id);
+            Console.WriteLine("Name     : " + countries.Name);
+            Console.WriteLine("Region ID: " + countries.RegionId);
+        }
+
+        public string InputById()
+        {
+            Console.WriteLine("Masukkan ID:");
+            string inputId = Console.ReadLine();
+            return inputId;
+
         }
 
         public Countries InsertMenu()
@@ -46,7 +54,7 @@ namespace MVCArchitecture.View
             string inputId = Console.ReadLine();
 
             Console.WriteLine("Masukan Nama: ");
-            string? inputName = Console.ReadLine();
+            string inputName = Console.ReadLine();
 
             Console.WriteLine("Masukan Region ID: ");
             int inputRegionId = Convert.ToInt32(Console.ReadLine()); 
@@ -75,6 +83,19 @@ namespace MVCArchitecture.View
                 Id = id,
                 Name = name,
                 RegionId= inputRegionId
+            };
+        }
+
+        public Countries DeleteMenu()
+        {
+            Console.WriteLine("Id yang ingin dihapus: ");
+            string id = Console.ReadLine();
+
+            return new Countries
+            {
+                Id = id,
+                Name = "",
+                RegionId = 0
             };
         }
 

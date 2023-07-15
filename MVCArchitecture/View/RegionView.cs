@@ -33,9 +33,9 @@ namespace MVCArchitecture.View
 
         public void GetById(Region region)
         {
-            Console.WriteLine("Id: " + region.Id);
-            Console.WriteLine("Name: " + region.Name);
             Console.WriteLine("==========================");
+            Console.WriteLine("Id   : " + region.Id);
+            Console.WriteLine("Name : " + region.Name);
         }       
 
         public int InputById()
@@ -48,12 +48,14 @@ namespace MVCArchitecture.View
 
         public Region InsertMenu()
         {
+            Console.WriteLine("Id yang ingin di insert: ");
+            int id = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Masukan Nama: ");
-            string? inputName = Console.ReadLine();
+            string inputName = Console.ReadLine();
 
             return new Region
             {
-                Id = 0,
+                Id = id,
                 Name = inputName
             };
         }
@@ -69,6 +71,18 @@ namespace MVCArchitecture.View
             {
                 Id = id,
                 Name = name
+            };
+        }
+
+        public Region DeleteMenu()
+        {
+            Console.WriteLine("Id yang ingin dihapus: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            return new Region
+            {
+                Id = id,
+                Name = ""
             };
         }
 

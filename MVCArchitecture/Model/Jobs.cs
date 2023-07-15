@@ -11,8 +11,8 @@ namespace MVCArchitecture.Model
 {
     public class Jobs
     {
-        public string? Id { get; set; }
-        public string? Title { get; set; }
+        public string Id { get; set; }
+        public string Title { get; set; }
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
 
@@ -76,25 +76,25 @@ namespace MVCArchitecture.Model
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
                 pId.SqlDbType = SqlDbType.Char;
-                pId.Value = Id;
+                pId.Value = jobs.Id;
                 sqlCommand.Parameters.Add(pId);
 
                 SqlParameter pTitle = new SqlParameter();
                 pTitle.ParameterName = "@title";
                 pTitle.SqlDbType = SqlDbType.VarChar;
-                pTitle.Value = Title;
+                pTitle.Value = jobs.Title;
                 sqlCommand.Parameters.Add(pTitle);
 
                 SqlParameter pMinSalary = new SqlParameter();
                 pMinSalary.ParameterName = "@min_salary";
                 pMinSalary.SqlDbType = SqlDbType.Int;
-                pMinSalary.Value = MinSalary;
+                pMinSalary.Value = jobs.MinSalary;
                 sqlCommand.Parameters.Add(pMinSalary);
 
                 SqlParameter pMaxSalary = new SqlParameter();
                 pMaxSalary.ParameterName = "@max_salary";
                 pMaxSalary.SqlDbType = SqlDbType.Int;
-                pMaxSalary.Value = MaxSalary;
+                pMaxSalary.Value = jobs.MaxSalary;
                 sqlCommand.Parameters.Add(pMaxSalary);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -117,8 +117,8 @@ namespace MVCArchitecture.Model
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "UPDATE Jobs SET title = @newTitle, min_salary = @newMin_salary, max_salary = @newMax_salary " +
-                "WHERE Id = @id";
+            sqlCommand.CommandText = "UPDATE Jobs SET title = title, min_salary = @min_salary, max_salary = @max_salary " +
+                "WHERE id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -128,25 +128,25 @@ namespace MVCArchitecture.Model
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
                 pId.SqlDbType = SqlDbType.Char;
-                pId.Value = Id;
+                pId.Value = jobs.Id;
                 sqlCommand.Parameters.Add(pId);
 
                 SqlParameter pTitle = new SqlParameter();
                 pTitle.ParameterName = "@title";
                 pTitle.SqlDbType = SqlDbType.VarChar;
-                pTitle.Value = Title;
+                pTitle.Value = jobs.Title;
                 sqlCommand.Parameters.Add(pTitle);
 
                 SqlParameter pMinSalary = new SqlParameter();
                 pMinSalary.ParameterName = "@min_salary";
                 pMinSalary.SqlDbType = SqlDbType.Int;
-                pMinSalary.Value = MinSalary;
+                pMinSalary.Value = jobs.MinSalary;
                 sqlCommand.Parameters.Add(pMinSalary);
 
                 SqlParameter pMaxSalary = new SqlParameter();
                 pMaxSalary.ParameterName = "@max_salary";
                 pMaxSalary.SqlDbType = SqlDbType.Int;
-                pMaxSalary.Value = MaxSalary;
+                pMaxSalary.Value = jobs.MaxSalary;
                 sqlCommand.Parameters.Add(pMaxSalary);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -165,7 +165,7 @@ namespace MVCArchitecture.Model
         }
 
 
-        public int Delete(int id)
+        public int Delete(Jobs jobs)
         {
             var connection = Connection.Get();
 
@@ -181,7 +181,7 @@ namespace MVCArchitecture.Model
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
                 pId.SqlDbType = SqlDbType.Int;
-                pId.Value = Id;
+                pId.Value = jobs.Id;
                 sqlCommand.Parameters.Add(pId);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -209,7 +209,7 @@ namespace MVCArchitecture.Model
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
             sqlCommand.CommandText = "SELECT * FROM Jobs WHERE ID = @id";
-            sqlCommand.Parameters.AddWithValue("@region_id", id);
+            sqlCommand.Parameters.AddWithValue("@id", id);
 
             try
             {
@@ -223,16 +223,17 @@ namespace MVCArchitecture.Model
                     jobs.Title = reader.GetString(1);
                     jobs.MinSalary = reader.GetInt32(2);
                     jobs.MaxSalary = reader.GetInt32(3);
+
                 }
 
                 reader.Close();
                 connection.Close();
 
-                return new Jobs();
+                return jobs;
             }
             catch
             {
-                return new Jobs();
+                return null;
             }
         }
     }

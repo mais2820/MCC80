@@ -34,7 +34,13 @@ namespace MVCArchitecture.Controller
 
         public void GetById()
         {
+            var id = _countriesView.InputById();
+            var result = _countriesModel.GetById(id);
 
+            if (result == null)
+                _countriesView.DataEmpty();
+            else
+                _countriesView.GetById(result);
         }
 
         public void Insert()
@@ -77,7 +83,21 @@ namespace MVCArchitecture.Controller
 
         public void Delete()
         {
+            var countries = _countriesView.DeleteMenu();
+            var result = _countriesModel.Delete(countries);
 
+            switch (result)
+            {
+                case -1:
+                    _countriesView.DataEmpty();
+                    break;
+                case 0:
+                    _countriesView.Failure();
+                    break;
+                default:
+                    _countriesView.Success();
+                    break;
+            }
         }
     }
 }

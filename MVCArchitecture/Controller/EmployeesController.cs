@@ -34,7 +34,13 @@ namespace MVCArchitecture.Controller
 
         public void GetById()
         {
+            var id = _employeesView.InputById();
+            var result = _employeesModel.GetById(id);
 
+            if (result == null)
+                _employeesView.DataEmpty();
+            else
+                _employeesView.GetById(result);
         }
 
         public void Insert()
@@ -77,7 +83,21 @@ namespace MVCArchitecture.Controller
 
         public void Delete()
         {
+            var employees = _employeesView.DeleteMenu();
+            var result = _employeesModel.Delete(employees);
 
+            switch (result)
+            {
+                case -1:
+                    _employeesView.DataEmpty();
+                    break;
+                case 0:
+                    _employeesView.Failure();
+                    break;
+                default:
+                    _employeesView.Success();
+                    break;
+            }
         }
     }
 }

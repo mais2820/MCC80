@@ -63,6 +63,9 @@ public class Program
                         break;
                     case 8:
                         LinqMenu();
+                        PressAnyKey();
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
                     case 9:
                         ulang = false;
@@ -88,7 +91,7 @@ public class Program
         var department = new Department();
         var linq = new LinqController(employee, country, region, location, department);
 
-        linq.DetailEmployees();
+        linq.DetailEmployees();      
     }
 
     private static void RegionMenu()
@@ -109,26 +112,31 @@ public class Program
                     Console.Clear();
                     regionController.GetAll();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 2:
                     Console.Clear();
                     regionController.GetById();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 3:
                     Console.Clear();
                     regionController.Insert();
-                    PressAnyKey(); 
+                    PressAnyKey();
+                    Console.Clear();
                     break;
                 case 4:
                     Console.Clear();
                     regionController.Update();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 5:
                     Console.Clear();
                     regionController.Delete();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 6:
                     isTrue = false;
@@ -137,8 +145,9 @@ public class Program
                     InvalidInput();
                     break;
             }
-        }   
+        }           
         while (isTrue);
+        Console.Clear();
     }
 
     private static void JobsMenu() 
@@ -165,21 +174,25 @@ public class Program
                     Console.Clear();
                     jobsController.GetById();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 3:
                     Console.Clear();
                     jobsController.Insert();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 4:
                     Console.Clear();
                     jobsController.Update();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 5:
                     Console.Clear();
                     jobsController.Delete();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 6:
                     isTrue = false;
@@ -216,21 +229,25 @@ public class Program
                     Console.Clear();
                     countriesController.GetById();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 3:
                     Console.Clear();
                     countriesController.Insert();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 4:
                     Console.Clear();
                     countriesController.Update();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 5:
                     Console.Clear();
                     countriesController.Delete();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 6:
                     isTrue = false;
@@ -266,21 +283,25 @@ public class Program
                     Console.Clear();
                     locationController.GetById();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 3:
                     Console.Clear();
                     locationController.Insert();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 4:
                     Console.Clear();
                     locationController.Update();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 5:
                     Console.Clear();
                     locationController.Delete();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 6:
                     isTrue = false;
@@ -316,6 +337,7 @@ public class Program
                     Console.Clear();
                     departmentController.GetById();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 3:
                     Console.Clear();
@@ -326,11 +348,13 @@ public class Program
                     Console.Clear();
                     departmentController.Update();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 5:
                     Console.Clear();
                     departmentController.Delete();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 6:
                     isTrue = false;
@@ -367,21 +391,25 @@ public class Program
                     Console.Clear();
                     historiesController.GetById();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 3:
                     Console.Clear();
                     historiesController.Insert();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 4:
                     Console.Clear();
                     historiesController.Update();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 5:
                     Console.Clear();
                     historiesController.Delete();
                     PressAnyKey();
+                    Console.Clear();
                     break;
                 case 6:
                     isTrue = false;

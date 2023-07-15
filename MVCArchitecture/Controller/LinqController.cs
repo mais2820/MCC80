@@ -24,34 +24,6 @@ public class LinqController
         _location = location;
         _department = department;
     }
-
-    public void EmployeeByLastName()
-    {
-        var getEmployee = _employees.GetAll();
-        
-        var filtered = getEmployee.Select(e => new {
-            FirstName = e.FirstName,
-            LastName = e.LastName,
-            Email = e.Email
-        }).FirstOrDefault(emp => emp.LastName.Contains("Walker"));
-
-        var filteredQuery = (from e in getEmployee
-                             where e.LastName.Contains("Walker")
-                             select new
-                             {
-                                 e.FirstName,
-                                 e.LastName,
-                             }).ToList();
-
-        Console.WriteLine($"{filtered.FirstName} {filtered.LastName}");
-
-        foreach (var employee in filteredQuery)
-        {
-            Console.WriteLine($"{employee.FirstName} {employee.LastName}");
-            //Console.WriteLine($"{employee.Email}");
-        }
-    }
-
     public void DetailEmployees()
     {
         var getEmployees = _employees.GetAll();

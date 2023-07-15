@@ -34,6 +34,7 @@ namespace MVCArchitecture.View
 
         public void GetById(Employees employees)
         {
+            Console.WriteLine("==========================");
             Console.WriteLine("Id: " + employees.Id);
             Console.WriteLine("Name: " + employees.FirstName);
             Console.WriteLine("Id: " + employees.LastName);
@@ -45,19 +46,29 @@ namespace MVCArchitecture.View
             Console.WriteLine("Id: " + employees.ManagerId);
             Console.WriteLine("Id: " + employees.JobId);
             Console.WriteLine("Id: " + employees.DepartmentId);
-            Console.WriteLine("==========================");
+        }
+
+        public int InputById()
+        {
+            Console.WriteLine("Masukkan ID:");
+            int inputId = Convert.ToInt32(Console.ReadLine());
+            return inputId;
+
         }
 
         public Employees InsertMenu()
         {
+            Console.WriteLine("Masukan Id: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
             Console.WriteLine("Masukan First Name: ");
-            string? firstName = Console.ReadLine();
+            string firstName = Console.ReadLine();
 
             Console.WriteLine("Masukan Last Name: ");
             string? lastName = Console.ReadLine();
 
             Console.WriteLine("Masukan Email: ");
-            string? email = Console.ReadLine();
+            string email = Console.ReadLine();
 
             Console.WriteLine("Masukan Phone Number: ");
             string? phoneNumber = Console.ReadLine();
@@ -66,23 +77,23 @@ namespace MVCArchitecture.View
             DateTime hireDate = Convert.ToDateTime(Console.ReadLine());
 
             Console.WriteLine("Masukan Salary: ");
-            int salary = Convert.ToInt32(Console.ReadLine());
+            int? salary = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Masukan Comission PCT: ");
-            int comissionPct = Convert.ToInt32(Console.ReadLine());
+            int? comissionPct = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Masukan Manager ID: ");
-            int managerId = Convert.ToInt32(Console.ReadLine());
+            int? managerId = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Masukan Job ID: ");
-            string? jobId = Console.ReadLine();
+            string jobId = Console.ReadLine();
 
             Console.WriteLine("Masukan Department Id: ");
             int departmentId = Convert.ToInt32(Console.ReadLine());
 
             return new Employees
             {
-                Id = 0,
+                Id = id,
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
@@ -102,13 +113,13 @@ namespace MVCArchitecture.View
             int id = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Masukan First Name: ");
-            string? firstName = Console.ReadLine();
+            string firstName = Console.ReadLine();
 
             Console.WriteLine("Masukan Last Name: ");
             string? lastName = Console.ReadLine();
 
             Console.WriteLine("Masukan Email: ");
-            string? email = Console.ReadLine();
+            string email = Console.ReadLine();
 
             Console.WriteLine("Masukan Phone Number: ");
             string? phoneNumber = Console.ReadLine();
@@ -117,16 +128,16 @@ namespace MVCArchitecture.View
             DateTime hireDate = Convert.ToDateTime(Console.ReadLine());
 
             Console.WriteLine("Masukan Salary: ");
-            int salary = Convert.ToInt32(Console.ReadLine());
+            int? salary = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Masukan Comission PCT: ");
-            int comissionPct = Convert.ToInt32(Console.ReadLine());
+            int? comissionPct = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Masukan Manager ID: ");
-            int managerId = Convert.ToInt32(Console.ReadLine());
+            int? managerId = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Masukan Job ID: ");
-            string? jobId = Console.ReadLine();
+            string jobId = Console.ReadLine();
 
             Console.WriteLine("Masukan Department Id: ");
             int departmentId = Convert.ToInt32(Console.ReadLine());
@@ -147,6 +158,26 @@ namespace MVCArchitecture.View
                 ManagerId = managerId,
                 JobId = jobId,
                 DepartmentId = departmentId,
+            };
+        }
+        public Employees DeleteMenu()
+        {
+            Console.WriteLine("Id yang ingin dihapus: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            return new Employees
+            {
+                Id = id,
+                FirstName = "",
+                LastName = "",
+                Email = "",
+                PhoneNumber = "",
+                HireDate = DateTime.Now,
+                Salary = 0,
+                ComissionPct = 0,
+                ManagerId = 0,
+                JobId = "",
+                DepartmentId = 0,
             };
         }
         public void DataEmpty()

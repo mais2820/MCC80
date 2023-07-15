@@ -34,7 +34,13 @@ namespace MVCArchitecture.Controller
 
         public void GetById()
         {
+            var id = _jobView.InputById();
+            var result = _jobModel.GetById(id);
 
+            if (result == null)
+                _jobView.DataEmpty();
+            else
+                _jobView.GetById(result);
         }
 
         public void Insert()
@@ -75,8 +81,22 @@ namespace MVCArchitecture.Controller
             }
         }
         public void Delete() 
-        { 
-        
+        {
+            var jobs = _jobView.DeleteMenu();
+            var result = _jobModel.Delete(jobs);
+
+            switch (result)
+            {
+                case -1:
+                    _jobView.DataEmpty();
+                    break;
+                case 0:
+                    _jobView.Failure();
+                    break;
+                default:
+                    _jobView.Success();
+                    break;
+            }
         }
 
     }

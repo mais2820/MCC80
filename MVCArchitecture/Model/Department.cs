@@ -76,25 +76,25 @@ namespace MVCArchitecture.Model
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
                 pId.SqlDbType = SqlDbType.Int;
-                pId.Value = Id;
+                pId.Value = department.Id;
                 sqlCommand.Parameters.Add(pId);
 
                 SqlParameter pName = new SqlParameter();
                 pName.ParameterName = "@name";
                 pName.SqlDbType = SqlDbType.VarChar;
-                pName.Value = Name;
+                pName.Value = department.Name;
                 sqlCommand.Parameters.Add(pName);
 
                 SqlParameter pLocationId = new SqlParameter();
                 pLocationId.ParameterName = "@location_id";
                 pLocationId.SqlDbType = SqlDbType.Int;
-                pLocationId.Value = LocationId;
+                pLocationId.Value = department.LocationId;
                 sqlCommand.Parameters.Add(pLocationId);
 
                 SqlParameter pManagerId = new SqlParameter();
                 pManagerId.ParameterName = "@manager_id";
                 pManagerId.SqlDbType = SqlDbType.Int;
-                pManagerId.Value = ManagerId;
+                pManagerId.Value = department.ManagerId;
                 sqlCommand.Parameters.Add(pManagerId);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -117,8 +117,8 @@ namespace MVCArchitecture.Model
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "UPDATE Department SET Name = @newName, " +
-                "location_id = @newLocation_id, manager_id = @newManager_id  WHERE Id = @id";
+            sqlCommand.CommandText = "UPDATE Department SET Name = @name, " +
+                "location_id = @location_id, manager_id = @manager_id  WHERE id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -128,25 +128,25 @@ namespace MVCArchitecture.Model
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
                 pId.SqlDbType = SqlDbType.Int;
-                pId.Value = Id;
+                pId.Value = department.Id;
                 sqlCommand.Parameters.Add(pId);
 
                 SqlParameter pNewName = new SqlParameter();
-                pNewName.ParameterName = "@newName";
+                pNewName.ParameterName = "@name";
                 pNewName.SqlDbType = SqlDbType.VarChar;
-                pNewName.Value = Name;
+                pNewName.Value = department.Name;
                 sqlCommand.Parameters.Add(pNewName);
 
                 SqlParameter pNewLocationId = new SqlParameter();
-                pNewLocationId.ParameterName = "@newLocation_id";
+                pNewLocationId.ParameterName = "@location_id";
                 pNewLocationId.SqlDbType = SqlDbType.Int;
-                pNewLocationId.Value = LocationId;
+                pNewLocationId.Value = department.LocationId;
                 sqlCommand.Parameters.Add(pNewLocationId);
 
                 SqlParameter pNewManagerId = new SqlParameter();
-                pNewManagerId.ParameterName = "@newManager_id";
+                pNewManagerId.ParameterName = "@manager_id";
                 pNewManagerId.SqlDbType = SqlDbType.Int;
-                pNewManagerId.Value = ManagerId;
+                pNewManagerId.Value = department.ManagerId;
                 sqlCommand.Parameters.Add(pNewManagerId);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -164,13 +164,13 @@ namespace MVCArchitecture.Model
             }
         }
 
-        public int Delete(int id)
+        public int Delete(Department department)
         {
             var connection = Connection.Get();
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "DELETE FROM Department WHERE Id = @id";
+            sqlCommand.CommandText = "DELETE FROM Department WHERE id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -180,7 +180,7 @@ namespace MVCArchitecture.Model
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
                 pId.SqlDbType = SqlDbType.Int;
-                pId.Value = Id;
+                pId.Value = department.Id;
                 sqlCommand.Parameters.Add(pId);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -205,7 +205,7 @@ namespace MVCArchitecture.Model
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "SELECT * FROM Department WHERE ID = @id";
+            sqlCommand.CommandText = "SELECT * FROM Department WHERE id = @id";
             sqlCommand.Parameters.AddWithValue("@region_id", id);
 
             try
@@ -225,11 +225,11 @@ namespace MVCArchitecture.Model
                 reader.Close();
                 connection.Close();
 
-                return new Department();
+                return department;
             }
             catch
             {
-                return new Department();
+                return null;
             }
         }
     }

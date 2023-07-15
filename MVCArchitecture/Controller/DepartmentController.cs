@@ -34,7 +34,13 @@ namespace MVCArchitecture.Controller
 
         public void GetById()
         {
+            var id = _departmentView.InputById();
+            var result = _departmentModel.GetById(id);
 
+            if (result == null)
+                _departmentView.DataEmpty();
+            else
+                _departmentView.GetById(result);
         }
 
         public void Insert()
@@ -77,7 +83,21 @@ namespace MVCArchitecture.Controller
 
         public void Delete()
         {
+            var department = _departmentView.DeleteMenu();
+            var result = _departmentModel.Delete(department);
 
+            switch (result)
+            {
+                case -1:
+                    _departmentView.DataEmpty();
+                    break;
+                case 0:
+                    _departmentView.Failure();
+                    break;
+                default:
+                    _departmentView.Success();
+                    break;
+            }
         }
     }
 }

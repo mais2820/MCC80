@@ -41,8 +41,25 @@ namespace MVCArchitecture.View
             Console.WriteLine("==========================");
         }
 
+        public int InputById()
+        {
+            Console.WriteLine("Masukkan ID:");
+            int inputId = Convert.ToInt32(Console.ReadLine());
+            return inputId;
+
+        }
+
         public Histories InsertMenu()
         {
+            Console.WriteLine("Masukan Start Date: ");
+            DateTime startDate = Convert.ToDateTime(Console.ReadLine());
+
+            Console.WriteLine("Masukan Employee Id: ");
+            int employeeId = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Masukan End Date: ");
+            DateTime endDate = Convert.ToDateTime(Console.ReadLine());
+
             Console.WriteLine("Masukan Department Id: ");
             int departmentId = Convert.ToInt32(Console.ReadLine());
 
@@ -51,6 +68,9 @@ namespace MVCArchitecture.View
 
             return new Histories
             {
+                StartDate = startDate, 
+                EmployeeId = employeeId,
+                EndDate = endDate,
                 DepartmentId = departmentId,
                 JobId = jobId               
             };
@@ -58,6 +78,15 @@ namespace MVCArchitecture.View
 
         public Histories UpdateMenu()
         {
+            Console.WriteLine("Masukan Start Date: ");
+            DateTime startDate = Convert.ToDateTime(Console.ReadLine());
+
+            Console.WriteLine("Masukan Employee Id: ");
+            int employeeId = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Masukan End Date: ");
+            DateTime endDate = Convert.ToDateTime(Console.ReadLine());
+
             Console.WriteLine("Masukan Department Id: ");
             int departmentId = Convert.ToInt32(Console.ReadLine());
 
@@ -66,11 +95,28 @@ namespace MVCArchitecture.View
 
             return new Histories
             {
+                StartDate = startDate,
+                EmployeeId = employeeId,
+                EndDate = endDate,
                 DepartmentId = departmentId,
                 JobId = jobId
             };
         }
 
+        public Histories DeleteMenu()
+        {
+            Console.WriteLine("Employee Id yang ingin dihapus: ");
+            int employeeId = Convert.ToInt32(Console.ReadLine());
+
+            return new Histories
+            {
+                StartDate = DateTime.Now,
+                EmployeeId = employeeId,
+                EndDate = null,
+                DepartmentId = 0,
+                JobId = 0
+            };
+        }
         public void DataEmpty()
         {
             Console.WriteLine("Data Not Found!");

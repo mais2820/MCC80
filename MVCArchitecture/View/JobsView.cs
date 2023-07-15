@@ -34,11 +34,19 @@ namespace MVCArchitecture.View
 
         public void GetById(Jobs jobs)
         {
-            Console.WriteLine("Id: " + jobs.Id);
-            Console.WriteLine("Name: " + jobs.Title);
-            Console.WriteLine("Min Salary: " + jobs.MinSalary);
-            Console.WriteLine("Max Salary: " + jobs.MaxSalary);
+            Console.WriteLine("Id           : " + jobs.Id);
+            Console.WriteLine("Name         : " + jobs.Title);
+            Console.WriteLine("Min Salary   : " + jobs.MinSalary);
+            Console.WriteLine("Max Salary   : " + jobs.MaxSalary);
             Console.WriteLine("==========================");
+        }
+
+        public int InputById()
+        {
+            Console.WriteLine("Masukkan ID:");
+            int inputId = Convert.ToInt32(Console.ReadLine());
+            return inputId;
+
         }
 
         public Jobs InsertMenu()
@@ -64,7 +72,7 @@ namespace MVCArchitecture.View
         public Jobs UpdateMenu()
         {
             Console.WriteLine("Id yang ingin diubah: ");
-            string? id = Console.ReadLine();
+            string id = Console.ReadLine();
             Console.WriteLine("Title: ");
             string title = Console.ReadLine();
             Console.WriteLine("Masukan Min Salary: ");
@@ -78,6 +86,20 @@ namespace MVCArchitecture.View
                 Title = title,
                 MinSalary = minSalary,
                 MaxSalary = maxSalary
+            };
+        }
+
+        public Jobs DeleteMenu()
+        {
+            Console.WriteLine("Id yang ingin dihapus: ");
+            string id = Console.ReadLine();
+
+            return new Jobs
+            {
+                Id = id,
+                Title = "",
+                MinSalary = 0,
+                MaxSalary = 0
             };
         }
 

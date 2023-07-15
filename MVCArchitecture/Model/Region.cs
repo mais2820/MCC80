@@ -11,7 +11,7 @@ namespace MVCArchitecture.Model
    public class Region
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         public List<Region> GetAll()
         {
@@ -59,7 +59,7 @@ namespace MVCArchitecture.Model
 
             using SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "INSERT INTO Regions VALUES (@name)";
+            sqlCommand.CommandText = "INSERT INTO Regions (id, name) VALUES (@id, @name)";
 
             connection.Open();
             using SqlTransaction transaction = connection.BeginTransaction();
@@ -67,6 +67,12 @@ namespace MVCArchitecture.Model
 
             try
             {
+                SqlParameter pRegionId = new SqlParameter();
+                pRegionId.ParameterName = "@id";
+                pRegionId.SqlDbType = System.Data.SqlDbType.Int;
+                pRegionId.Value = region.Id;
+                sqlCommand.Parameters.Add(pRegionId);
+
                 SqlParameter pName = new SqlParameter();
                 pName.ParameterName = "@name";
                 pName.SqlDbType = System.Data.SqlDbType.VarChar;
@@ -93,7 +99,7 @@ namespace MVCArchitecture.Model
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "UPDATE Regions SET name = @name WHERE id = @region_id";
+            sqlCommand.CommandText = "UPDATE Regions SET name = @name WHERE id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -107,7 +113,7 @@ namespace MVCArchitecture.Model
                 sqlCommand.Parameters.Add(pName);
 
                 SqlParameter pRegionId = new SqlParameter();
-                pRegionId.ParameterName = "@region_id";
+                pRegionId.ParameterName = "@id";
                 pRegionId.SqlDbType = System.Data.SqlDbType.Int;
                 pRegionId.Value = region.Id;
                 sqlCommand.Parameters.Add(pRegionId);
@@ -127,13 +133,13 @@ namespace MVCArchitecture.Model
             }
         }
 
-        public int Delete(int id)
+        public int Delete(Region region)
         {
             var connection = Connection.Get();
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "DELETE FROM Regions WHERE region_id = @region_id";
+            sqlCommand.CommandText = "DELETE FROM Regions WHERE id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -141,9 +147,9 @@ namespace MVCArchitecture.Model
             try
             {
                 SqlParameter pRegionId = new SqlParameter();
-                pRegionId.ParameterName = "@region_id";
+                pRegionId.ParameterName = "@id";
                 pRegionId.SqlDbType = System.Data.SqlDbType.Int;
-                pRegionId.Value = Id;
+                pRegionId.Value = region.Id;
                 sqlCommand.Parameters.Add(pRegionId);
 
                 int result = sqlCommand.ExecuteNonQuery();

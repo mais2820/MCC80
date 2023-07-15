@@ -11,14 +11,14 @@ namespace MVCArchitecture.Model
     public class Employees
     {
         public int Id { get; set; }
-        public string? FirstName { get; set; }
+        public string FirstName { get; set; }
         public string? LastName { get; set; }
-        public string? Email { get; set; }
+        public string Email { get; set; }
         public string? PhoneNumber { get; set; }
         public DateTime HireDate { get; set; }
-        public int Salary { get; set; }
-        public decimal ComissionPct { get; set; }
-        public int ManagerId { get; set; }
+        public int? Salary { get; set; }
+        public decimal? ComissionPct { get; set; }
+        public int? ManagerId { get; set; }
         public string? JobId { get; set; }
         public int DepartmentId { get; set; }
 
@@ -86,17 +86,17 @@ namespace MVCArchitecture.Model
 
             try
             {
-                sqlCommand.Parameters.AddWithValue("@id", Id);
-                sqlCommand.Parameters.AddWithValue("@first_name", FirstName);
-                sqlCommand.Parameters.AddWithValue("@last_name", LastName);
-                sqlCommand.Parameters.AddWithValue("@email", Email);
-                sqlCommand.Parameters.AddWithValue("@phone_number", PhoneNumber);
-                sqlCommand.Parameters.AddWithValue("@hire_date", HireDate);
-                sqlCommand.Parameters.AddWithValue("@salary", Salary);
-                sqlCommand.Parameters.AddWithValue("@commission_pct", ComissionPct);
-                sqlCommand.Parameters.AddWithValue("@manager_id", ManagerId);
-                sqlCommand.Parameters.AddWithValue("@job_id", JobId);
-                sqlCommand.Parameters.AddWithValue("@department_id", DepartmentId);
+                sqlCommand.Parameters.AddWithValue("@id", employees.Id);
+                sqlCommand.Parameters.AddWithValue("@first_name", employees.FirstName);
+                sqlCommand.Parameters.AddWithValue("@last_name", employees.LastName);
+                sqlCommand.Parameters.AddWithValue("@email", employees.Email);
+                sqlCommand.Parameters.AddWithValue("@phone_number", employees.PhoneNumber);
+                sqlCommand.Parameters.AddWithValue("@hire_date", employees.HireDate);
+                sqlCommand.Parameters.AddWithValue("@salary", employees.Salary);
+                sqlCommand.Parameters.AddWithValue("@commission_pct", employees.ComissionPct);
+                sqlCommand.Parameters.AddWithValue("@manager_id", employees.ManagerId);
+                sqlCommand.Parameters.AddWithValue("@job_id", employees.JobId);
+                sqlCommand.Parameters.AddWithValue("@department_id", employees.DepartmentId);
 
                 int result = sqlCommand.ExecuteNonQuery();
 
@@ -119,24 +119,24 @@ namespace MVCArchitecture.Model
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
             sqlCommand.CommandText = "UPDATE Employees SET first_name = @first_name, last_name = @last_name, email = @email, phone_number = @phone_number, hire_date = @hire_date, salary = @salary, commission_pct = @commission_pct, manager_id = @manager_id, job_id = @job_id, department_id = @department_id " +
-                "WHERE Id = @id";
+                "WHERE id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
             sqlCommand.Transaction = transaction;
             try
             {
-                sqlCommand.Parameters.AddWithValue("@id", Id);
-                sqlCommand.Parameters.AddWithValue("@first_name", FirstName);
-                sqlCommand.Parameters.AddWithValue("@last_name", LastName);
-                sqlCommand.Parameters.AddWithValue("@email", Email);
-                sqlCommand.Parameters.AddWithValue("@phone_number", PhoneNumber);
-                sqlCommand.Parameters.AddWithValue("@hire_date", HireDate);
-                sqlCommand.Parameters.AddWithValue("@salary", Salary);
-                sqlCommand.Parameters.AddWithValue("@commission_pct", ComissionPct);
-                sqlCommand.Parameters.AddWithValue("@manager_id", ManagerId);
-                sqlCommand.Parameters.AddWithValue("@job_id", JobId);
-                sqlCommand.Parameters.AddWithValue("@department_id", DepartmentId);
+                sqlCommand.Parameters.AddWithValue("@id", employees.Id);
+                sqlCommand.Parameters.AddWithValue("@first_name", employees.FirstName);
+                sqlCommand.Parameters.AddWithValue("@last_name", employees.LastName);
+                sqlCommand.Parameters.AddWithValue("@email", employees.Email);
+                sqlCommand.Parameters.AddWithValue("@phone_number", employees.PhoneNumber);
+                sqlCommand.Parameters.AddWithValue("@hire_date", employees.HireDate);
+                sqlCommand.Parameters.AddWithValue("@salary", employees.Salary);
+                sqlCommand.Parameters.AddWithValue("@commission_pct", employees.ComissionPct);
+                sqlCommand.Parameters.AddWithValue("@manager_id", employees.ManagerId);
+                sqlCommand.Parameters.AddWithValue("@job_id", employees.JobId);
+                sqlCommand.Parameters.AddWithValue("@department_id", employees.DepartmentId);
 
                 int result = sqlCommand.ExecuteNonQuery();
 
@@ -153,7 +153,7 @@ namespace MVCArchitecture.Model
             }
         }
 
-        public int Delete(int id)
+        public int Delete(Employees employees)
         {
             var connection = Connection.Get();
 
@@ -169,7 +169,7 @@ namespace MVCArchitecture.Model
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
                 pId.SqlDbType = SqlDbType.Int;
-                pId.Value = Id;
+                pId.Value = employees.Id;
                 sqlCommand.Parameters.Add(pId);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -221,11 +221,11 @@ namespace MVCArchitecture.Model
                 reader.Close();
                 connection.Close();
 
-                return new Employees();
+                return employee;
             }
             catch
             {
-                return new Employees();
+                return null;
             }
         }
     }

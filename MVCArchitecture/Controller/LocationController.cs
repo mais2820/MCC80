@@ -34,7 +34,13 @@ namespace MVCArchitecture.Controller
 
         public void GetById()
         {
+            var id = _locationView.InputById();
+            var result = _locationModel.GetById(id);
 
+            if (result == null)
+                _locationView.DataEmpty();
+            else
+                _locationView.GetById(result);
         }
 
         public void Insert()
@@ -77,7 +83,21 @@ namespace MVCArchitecture.Controller
 
         public void Delete()
         {
+            var location = _locationView.DeleteMenu();
+            var result = _locationModel.Delete(location);
 
+            switch (result)
+            {
+                case -1:
+                    _locationView.DataEmpty();
+                    break;
+                case 0:
+                    _locationView.Failure();
+                    break;
+                default:
+                    _locationView.Success();
+                    break;
+            }
         }
     }
 

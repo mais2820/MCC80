@@ -36,6 +36,7 @@ namespace MVCArchitecture.Controller
         {
             var id = _regionView.InputById();
             var result = _regionModel.GetById(id);
+
             if (result == null)
                 _regionView.DataEmpty();
             else
@@ -82,7 +83,7 @@ namespace MVCArchitecture.Controller
 
         public void Delete()
         {
-            var region = _regionView.InputById();
+            var region = _regionView.DeleteMenu();
             var result = _regionModel.Delete(region);
 
             switch (result)

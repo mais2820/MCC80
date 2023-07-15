@@ -34,7 +34,13 @@ namespace MVCArchitecture.Controller
 
         public void GetById()
         {
+            var id = _historiesView.InputById();
+            var result = _historiesModel.GetById(id);
 
+            if (result == null)
+               _historiesView.DataEmpty();
+            else
+                _historiesView.GetById(result);
         }
 
         public void Insert()
@@ -77,7 +83,21 @@ namespace MVCArchitecture.Controller
 
         public void Delete()
         {
+            var histories = _historiesView.DeleteMenu();
+            var result = _historiesModel.Delete(histories);
 
+            switch (result)
+            {
+                case -1:
+                    _historiesView.DataEmpty();
+                    break;
+                case 0:
+                    _historiesView.Failure();
+                    break;
+                default:
+                    _historiesView.Success();
+                    break;
+            }
         }
     }
 }

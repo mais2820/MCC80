@@ -109,8 +109,8 @@ namespace MVCArchitecture.Model
 
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = connection;
-            sqlCommand.CommandText = "UPDATE Countries SET name = @newName, region_id = newRegion_id " +
-                "WHERE Id = @id";
+            sqlCommand.CommandText = "UPDATE Countries SET name = name, region_id = region_id " +
+                "WHERE id = @id";
 
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -150,7 +150,7 @@ namespace MVCArchitecture.Model
             }
         }
 
-        public int Delete(int id)
+        public int Delete(Countries countries)
         {
             var connection = Connection.Get();
 
@@ -166,7 +166,7 @@ namespace MVCArchitecture.Model
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@id";
                 pId.SqlDbType = SqlDbType.Int;
-                pId.Value = id;
+                pId.Value = countries.Id;
                 sqlCommand.Parameters.Add(pId);
 
                 int result = sqlCommand.ExecuteNonQuery();
@@ -183,7 +183,7 @@ namespace MVCArchitecture.Model
             }
         }
 
-        public Countries GetById(int id)
+        public Countries GetById(string id)
         {
             var countries = new Countries();
 
@@ -194,9 +194,10 @@ namespace MVCArchitecture.Model
             sqlCommand.CommandText = "SELECT * FROM Countries WHERE id = @id";
             sqlCommand.Parameters.AddWithValue("@id", id);
 
+            connection.Open();
+
             try
             {
-                connection.Open();
                 SqlDataReader reader = sqlCommand.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -211,11 +212,11 @@ namespace MVCArchitecture.Model
                 reader.Close();
                 connection.Close();
 
-                return new Countries();
+                return countries;
             }
             catch
             {
-                return new Countries();
+                return null;
             }
         }
     }
