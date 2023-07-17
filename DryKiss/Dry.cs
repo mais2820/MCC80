@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace Kelompok2;
@@ -20,6 +21,7 @@ public class Dry
         Console.WriteLine("Keliling  : " + perimeter);
     }
 
+    
     public void CalculatorCircle(double radius)
     {
         double area = Math.PI * Math.Pow(radius, 2);

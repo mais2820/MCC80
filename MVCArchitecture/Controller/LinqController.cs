@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MVCArchitecture.Model;
+using MVCArchitecture.View;
 
 namespace MVCArchitecture.Controllers;
 
@@ -33,40 +34,43 @@ public class LinqController
         var getDepartment = _department.GetAll(); 
 
 
-        var detailEmployeeByQuery = (from e in getEmployees 
+        var dataEmployeeByQuery = (from e in getEmployees 
                                      join d in getDepartment on e.DepartmentId equals d.Id
                                      join l in getLocation on d.LocationId equals l.Id
                                      join c in getCountry on l.CountryId equals c.Id
                                      join r in getRegion on c.RegionId equals r.Id
-                                    select new
+                                    select new Linq()
                                     {
                                         Id = e.Id,
                                         FirstName = e.FirstName,
                                         LastName = e.LastName,
                                         Email = e.Email,
-                                        Phone = e.PhoneNumber,
+                                        PhoneNumber = e.PhoneNumber,
                                         Salary = e.Salary,
                                         DepartmentName = d.Name,
                                         StreetAddress = l.StreetAddress,
-                                        CountryName = c.Name,
-                                        RegionName = r.Name
+                                        Country = c.Name,
+                                        Region = r.Name
                                     }).ToList();
 
-        foreach (var employee in detailEmployeeByQuery)
-        {
-            //Console.WriteLine($"{employee.Id} {employee.FirstName} {employee.LastName} {employee.Email} {employee.Phone} {employee.Salary} " +
-                //$"{employee.DepartmentName} {employee.StreetAddress} {employee.CountryName} {employee.RegionName}");
-            Console.WriteLine("Id              : "+employee.Id);
-            Console.WriteLine("Full Name       : "+employee.FirstName+" "+employee.LastName);
-            Console.WriteLine("Email           : "+employee.Email);
-            Console.WriteLine("Phone           : "+employee.Phone);
-            Console.WriteLine("Salary          : "+employee.Salary);
-            Console.WriteLine("Department Name : "+employee.DepartmentName);
-            Console.WriteLine("Street Address  : "+employee.StreetAddress);
-            Console.WriteLine("Country Name    : "+employee.CountryName);
-            Console.WriteLine("Region Name     : "+employee.RegionName);
-            Console.WriteLine("");
+        //foreach (var employee in detailEmployeeByQuery)
+        //{
+        //    //Console.WriteLine($"{employee.Id} {employee.FirstName} {employee.LastName} {employee.Email} {employee.Phone} {employee.Salary} " +
+        //        //$"{employee.DepartmentName} {employee.StreetAddress} {employee.CountryName} {employee.RegionName}");
+        //    Console.WriteLine("Id              : "+employee.Id);
+        //    Console.WriteLine("Full Name       : "+employee.FirstName+" "+employee.LastName);
+        //    Console.WriteLine("Email           : "+employee.Email);
+        //    Console.WriteLine("Phone           : "+employee.Phone);
+        //    Console.WriteLine("Salary          : "+employee.Salary);
+        //    Console.WriteLine("Department Name : "+employee.DepartmentName);
+        //    Console.WriteLine("Street Address  : "+employee.StreetAddress);
+        //    Console.WriteLine("Country Name    : "+employee.CountryName);
+        //    Console.WriteLine("Region Name     : "+employee.RegionName);
+        //    Console.WriteLine("");
 
-        }
+        //}
+
+        LinqView VL = new LinqView();
+        VL.GetAll(dataEmployeeByQuery);
     }
 }
